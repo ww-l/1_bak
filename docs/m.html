@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html lang="zh">
 <head>
 <meta charset="UTF-8">
@@ -40,13 +40,15 @@
 <script src="js/md5.js" type="text/javascript"></script>
 
 <script>
+var g_tip1 = '欢迎主人回来 ^_^';
 var g_date=new Date();
 $.ajax({
     url: '',
     type: 'get',
     success: function (data, status, xhr) {             
             var str = xhr.getResponseHeader('Date');  
-            g_date = new Date(str); //把GMT 2 北京时间 
+            g_date = new Date(str); //把GMT 2 北京时间
+			toast(g_tip1); 
      }
 });
 	
@@ -67,7 +69,18 @@ $('#login-button').click(function (event) {
 		alert("暗号错误或过期，请再试试或联系TA！");
 	}
 });
+function toast(msg) {
+    setTimeout(function () {
+        document.getElementsByClassName('toast-wrap')[0].getElementsByClassName('toast-msg')[0].innerHTML = msg;
+        var toastTag = document.getElementsByClassName('toast-wrap')[0];
+        toastTag.className = toastTag.className.replace('toastAnimate', '');
+        setTimeout(function () {
+            toastTag.className = toastTag.className + ' toastAnimate';
+        }, 100);
+    }, 500);
+}
 </script>
+<div class="toast-wrap"><span class="toast-msg"></span></div>
 <div class="parent">    
 	<div class="under"><span class="info">每月1号需进行维护，请耐心等待！</span><a href="#" style="color: gray">教程</a></div>
 </div>
